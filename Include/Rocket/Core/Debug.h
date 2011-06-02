@@ -31,9 +31,9 @@
 #include <Rocket/Core/Header.h>
 
 // Define for breakpointing.
-#if defined (ROCKET_PLATFORM_WIN32)
-#define ROCKET_BREAK _asm { int 0x03 }
-#elif defined (ROCKET_PLATFORM_LINUX)
+#if defined (ROCKET_PLATFORM_WIN32)  && defined(_MSC_VER)
+  #define ROCKET_BREAK _asm { int 0x03 }
+#elif defined (ROCKET_PLATFORM_LINUX) || defined(__GNUC__ )
 #define ROCKET_BREAK asm ("int $0x03" )
 #elif defined (ROCKET_PLATFORM_MACOSX)
 #include <TargetConditionals.h>

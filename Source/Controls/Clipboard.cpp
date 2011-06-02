@@ -107,7 +107,8 @@ void Clipboard::Set(const Core::WString& _content)
 		_content.ToUTF8(win32_content);
 
 		HGLOBAL clipboard_data = GlobalAlloc(GMEM_FIXED, win32_content.Length() + 1);
-		strcpy_s((char*) clipboard_data, win32_content.Length() + 1, win32_content.CString());
+		// strcpy_s((char*) clipboard_data, win32_content.Length() + 1, win32_content.CString());
+		memcpy((void*) clipboard_data, win32_content.CString(), win32_content.Length() + 1);
 
 		if (SetClipboardData(CF_TEXT, clipboard_data) == NULL)
 		{
